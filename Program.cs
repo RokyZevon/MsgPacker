@@ -6,9 +6,12 @@ if (args.Length != 1)
     Environment.Exit(1);
 }
 
-var files = Directory.GetFiles(
-    Path.GetDirectoryName(args[0]) ?? Environment.CurrentDirectory,
-    Path.GetFileName(args[0]));
+var path = args[0];
+var dir = Path.GetDirectoryName(path);
+if (string.IsNullOrWhiteSpace(dir))
+    dir = Environment.CurrentDirectory;
+
+var files = Directory.GetFiles(dir, Path.GetFileName(path));
 
 if (files.Length == 0)
 {
